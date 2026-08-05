@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://ccmb6p08ydfax" path="res://scripts/character_body_2d.gd" id="1_v6fml"]
 [ext_resource type="Texture2D" uid="uid://b2i4l7ev3ao0j" path="res://assets/characters/MiniHorseMan.png" id="2_3li8b"]
+[ext_resource type="AudioStream" uid="uid://5pqm1uyfpvym" path="res://assets/audio/Spear.mp3" id="3_3li8b"]
+[ext_resource type="Texture2D" uid="uid://b7bmto2c16j7j" path="res://assets/tileset/tilemap_packed.png" id="4_mdl7e"]
+[ext_resource type="Texture2D" uid="uid://cb7i63j5uc6b6" path="res://assets/characters/MiniSwordMan.png" id="5_qu4a1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s65a4"]
 size = Vector2(8.317182, 9.327219)
@@ -207,7 +210,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_2cqfq")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"die",
 "speed": 7.0
 }, {
@@ -226,9 +229,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_cegan")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"hit",
-"speed": 5.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -317,6 +320,95 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_807um"]
 radius = 6.731264
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_khinc"]
+atlas = ExtResource("5_qu4a1")
+region = Rect2(112, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bruh7"]
+atlas = ExtResource("4_mdl7e")
+region = Rect2(72, 36, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qu4a1"]
+atlas = ExtResource("4_mdl7e")
+region = Rect2(72, 36, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_70d11"]
+atlas = ExtResource("4_mdl7e")
+region = Rect2(90, 36, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6eyey"]
+atlas = ExtResource("4_mdl7e")
+region = Rect2(90, 36, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cw2d6"]
+atlas = ExtResource("4_mdl7e")
+region = Rect2(108, 36, 18, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3kwdt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_khinc")
+}],
+"loop": 0,
+"name": &"emptygone",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bruh7")
+}],
+"loop": 1,
+"name": &"full",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qu4a1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_70d11")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qu4a1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_70d11")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qu4a1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_70d11")
+}],
+"loop": 0,
+"name": &"fulltohalf",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6eyey")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cw2d6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6eyey")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cw2d6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6eyey")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cw2d6")
+}],
+"loop": 0,
+"name": &"halftoempty",
+"speed": 5.0
+}]
+
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=1144662305]
 z_index = 2
 scale = Vector2(0.594242, 0.5777384)
@@ -342,23 +434,58 @@ texture_filter = 1
 position = Vector2(3.5000002, -3.0000002)
 scale = Vector2(1.5937501, 1.7500001)
 sprite_frames = SubResource("SpriteFrames_807um")
-animation = &"sprint"
-frame = 1
-frame_progress = 0.7399156
+animation = &"hit"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2121138232]
 scale = Vector2(1.0000001, 1.0000001)
 zoom = Vector2(2, 2)
 
-[node name="Area2D" type="Area2D" parent="." unique_id=1598923460]
+[node name="LadderDetector" type="Area2D" parent="." unique_id=1598923460]
 scale = Vector2(1.0000001, 1.0000001)
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=315836642]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LadderDetector" unique_id=315836642]
+visible = false
 position = Vector2(3.365632, 12.116209)
 shape = SubResource("CircleShape2D_807um")
 
+[node name="HurtDetector" type="Area2D" parent="." unique_id=994349669]
+scale = Vector2(1.0000001, 1.0000001)
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="HurtDetector" unique_id=87824387]
+visible = false
+position = Vector2(7.6211257, 7.4526033)
+scale = Vector2(1.0000001, 1.0000001)
+shape = SubResource("RectangleShape2D_s65a4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtDetector" unique_id=246730694]
+visible = false
+position = Vector2(2.3171835, 6.0000014)
+scale = Vector2(1.0000001, 1.0000001)
+shape = SubResource("RectangleShape2D_807um")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HurtDetector" unique_id=1773598049]
+visible = false
+position = Vector2(0, 15.385324)
+scale = Vector2(1.0000001, 1.0000001)
+shape = SubResource("RectangleShape2D_3kwdt")
+
+[node name="SpearSFX" type="AudioStreamPlayer2D" parent="." unique_id=2006415166]
+stream = ExtResource("3_3li8b")
+volume_db = 7.0
+
+[node name="Lives" type="AnimatedSprite2D" parent="." unique_id=1549036473]
+texture_filter = 1
+position = Vector2(0, -17.308872)
+sprite_frames = SubResource("SpriteFrames_3kwdt")
+animation = &"emptygone"
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="LadderDetector" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="LadderDetector" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="HurtDetector" to="." method="_on_hurt_detector_body_entered"]
+[connection signal="body_entered" from="HurtDetector" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="HurtDetector" to="." method="_on_area_2d_body_exited"]

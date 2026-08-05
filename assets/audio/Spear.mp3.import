@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://5pqm1uyfpvym"
-path="res://.godot/imported/WEAPSwrd_Sword Slide Cuts, Metallic, Impact CM4 2_344 Audio_Medieval Weapons Vol 2.mp3-8c0556ee638786a2adc1b9890a5793b7.mp3str"
+path="res://.godot/imported/Spear.mp3-5b215fb33c7754597248bf2ef5b118c5.mp3str"
 
 [deps]
 
-source_file="res://assets/audio/WEAPSwrd_Sword Slide Cuts, Metallic, Impact CM4 2_344 Audio_Medieval Weapons Vol 2.mp3"
-dest_files=["res://.godot/imported/WEAPSwrd_Sword Slide Cuts, Metallic, Impact CM4 2_344 Audio_Medieval Weapons Vol 2.mp3-8c0556ee638786a2adc1b9890a5793b7.mp3str"]
+source_file="res://assets/audio/Spear.mp3"
+dest_files=["res://.godot/imported/Spear.mp3-5b215fb33c7754597248bf2ef5b118c5.mp3str"]
 
 [params]
 
