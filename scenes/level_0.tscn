@@ -15,8 +15,9 @@ texture_region_size = Vector2i(18, 18)
 
 [sub_resource type="TileSet" id="TileSet_xp8tn"]
 tile_size = Vector2i(18, 18)
-physics_layer_0/collision_layer = 2
-physics_layer_0/collision_mask = 2
+physics_layer_0/collision_layer = 1
+physics_layer_1/collision_layer = 2
+physics_layer_1/collision_mask = 0
 sources/0 = SubResource("TileSetAtlasSource_5nv5w")
 
 [node name="Level0" type="Node2D" unique_id=1030292960]
@@ -33,5 +34,5 @@ tile_map_data = PackedByteArray()
 
 [node name="Elevation" parent="." unique_id=328913235 instance=ExtResource("3_5nv5w")]
 visible = true
-tile_map_data = PackedByteArray("AAAIAAEAAAALAAIAAAAIAAIAAAALAAMAAAAIAAMAAAALAAMAAAAIAAQAAAALAAMAAAAIAAUAAAALAAMAAAAIAAYAAAALAAMAAAAIAAcAAAALAAMAAAAIAAgAAAALAAMAAAAIAAkAAAALAAMAAAAIAAoAAAALAAMAAAAIAAsAAAALAAMAAAA=")
+tile_map_data = PackedByteArray("AAAIAAoAAAALAAMAAAAIAAgAAAALAAMAAAAIAAcAAAALAAMAAAAIAAYAAAALAAMAAAAIAAUAAAALAAMAAAAIAAQAAAALAAMAAAAIAAIAAAALAAMAAAAIAAEAAAALAAIAAAAIAAkAAAALAAMAAAAIAAMAAAALAAMAAAAIAAsAAAALAAMAAAA=")
 tile_set = SubResource("TileSet_xp8tn")

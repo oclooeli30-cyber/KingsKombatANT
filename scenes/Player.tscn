@@ -341,9 +341,15 @@ shape = SubResource("RectangleShape2D_3kwdt")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2121138232]
 zoom = Vector2(2, 2)
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="." unique_id=1315415609]
-position = Vector2(7.621124, 7.4526033)
+[node name="Area2D" type="Area2D" parent="." unique_id=1598923460]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Area2D" unique_id=1315415609]
+position = Vector2(7.6211247, 7.4526033)
 scale = Vector2(1.0000001, 1.0000001)
 shape = SubResource("RectangleShape2D_s65a4")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
