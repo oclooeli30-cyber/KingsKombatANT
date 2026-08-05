@@ -30,6 +30,7 @@ version_control/autoload_on_startup=true
 
 folder_colors={
 "res://assets/": "yellow",
+"res://assets/audio/": "pink",
 "res://assets/characters/": "orange",
 "res://assets/tileset/": "green",
 "res://scenes/": "blue",
