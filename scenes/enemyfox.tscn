@@ -2,6 +2,35 @@
 
 [ext_resource type="Texture2D" uid="uid://bep2dauvotlsd" path="res://assets/tileset/MiniFox.png" id="1_ta7dm"]
 
+[sub_resource type="GDScript" id="GDScript_hv5ow"]
+resource_name = "enemyfox.gd"
+script/source = "extends CharacterBody2D
+
+
+const SPEED = 300.0
+const JUMP_VELOCITY = -400.0
+
+
+func _physics_process(delta: float) -> void:
+	# Add the gravity.
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+
+	# Handle jump.
+	if Input.is_action_just_pressed(\"ui_accept\") and is_on_floor():
+		velocity.y = JUMP_VELOCITY
+
+	# Get the input direction and handle the movement/deceleration.
+	# As good practice, you should replace UI actions with custom gameplay actions.
+	var direction := Input.get_axis(\"ui_left\", \"ui_right\")
+	if direction:
+		velocity.x = direction * SPEED
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+
+	move_and_slide()
+"
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_fwnai"]
 atlas = ExtResource("1_ta7dm")
 region = Rect2(0, 96, 32, 32)
@@ -179,6 +208,7 @@ radius = 3.0
 [node name="Fox" type="CharacterBody2D" unique_id=476424437]
 collision_layer = 4
 collision_mask = 4
+script = SubResource("GDScript_hv5ow")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=472796321]
 texture_filter = 1
