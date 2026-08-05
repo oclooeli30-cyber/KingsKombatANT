@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://68f0ugtqtry5" path="res://scenes/main_blocks.tscn" id="2_uijja"]
 [ext_resource type="PackedScene" uid="uid://dheui1jav3c7w" path="res://scenes/background.tscn" id="3_5nv5w"]
 [ext_resource type="Texture2D" uid="uid://b7bmto2c16j7j" path="res://assets/tileset/tilemap_packed.png" id="4_uijja"]
+[ext_resource type="PackedScene" uid="uid://bfbi6wu5pjpwt" path="res://scenes/enemyfox.tscn" id="5_5nv5w"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uijja"]
 texture = ExtResource("4_uijja")
@@ -394,7 +395,7 @@ sources/0 = SubResource("TileSetAtlasSource_5nv5w")
 
 [node name="Level0" type="Node2D" unique_id=1030292960]
 
-[node name="CharacterBody2D" parent="." unique_id=1144662305 instance=ExtResource("1_rerym")]
+[node name="Player" parent="." unique_id=1144662305 instance=ExtResource("1_rerym")]
 position = Vector2(19.999985, -6.0000305)
 
 [node name="MainBlocks" parent="." unique_id=1259676255 instance=ExtResource("2_uijja")]
@@ -409,3 +410,5 @@ tile_map_data = PackedByteArray()
 visible = true
 tile_map_data = PackedByteArray()
 tile_set = SubResource("TileSet_xp8tn")
+
+[node name="Fox" parent="." unique_id=476424437 instance=ExtResource("5_5nv5w")]

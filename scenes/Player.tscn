@@ -409,7 +409,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1144662305]
+[node name="Player" type="CharacterBody2D" unique_id=1144662305]
 z_index = 2
 scale = Vector2(0.594242, 0.5777384)
 script = ExtResource("1_v6fml")
