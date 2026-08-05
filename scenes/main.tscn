@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dnvxofs6bi2c7"]
 
 [ext_resource type="Texture2D" uid="uid://c4p3iqc6llbiq" path="res://assets/images/origbig.png" id="1_o5qli"]
-[ext_resource type="Script" uid="uid://brlcpkvm8vk0n" path="res://scenes/main.gd" id="1_sugp2"]
+[ext_resource type="Script" uid="uid://brlcpkvm8vk0n" path="res://scripts/main.gd" id="1_sugp2"]
 [ext_resource type="FontFile" uid="uid://b410lw0kodnll" path="res://assets/fonts/Monocraft.ttf" id="3_jyhfs"]
 
 [node name="Main" type="Node2D" unique_id=2142686094]
