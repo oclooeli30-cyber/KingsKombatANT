@@ -11,6 +11,7 @@ var sprinting := false
 var attacking := false
 var climbing := false
 var on_ladder := false
+var laddery : int
 
 func _ready() -> void:
 	ANIM.animation_finished.connect(_on_animation_finished)
@@ -71,7 +72,19 @@ func _physics_process(delta: float) -> void:
 		elif velocity.x > 0:
 			ANIM.flip_h = false
 
-		move_and_slide()
-
+		
+		climbing = false
+	else:
+		climbing = true
+		
+		if climbing == true:
+			laddery = (Input.is_action_pressed("down") as int) - int(Input.is_action_pressed("jump"))
+			velocity.y = laddery * CLIMB_SPEED
+			if laddery < 0:
+				ANIM.play("jump")
+			if laddery > 0:
+				ANIM.play("fall")
+			
+	move_and_slide()
 func _on_animation_finished() -> void:
 	attacking = false
