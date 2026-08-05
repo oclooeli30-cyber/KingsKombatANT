@@ -170,7 +170,13 @@ animations = [{
 "speed": 12.0
 }]
 
-[node name="enemyfox" type="Node2D" unique_id=1648226940]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_807um"]
+size = Vector2(13, 4.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_807um"]
+radius = 3.0
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=476424437]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=472796321]
 texture_filter = 1
@@ -178,3 +184,11 @@ sprite_frames = SubResource("SpriteFrames_807um")
 animation = &"idle"
 frame = 1
 frame_progress = 0.4029692
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1319525860]
+position = Vector2(-1.5, 12.25)
+shape = SubResource("RectangleShape2D_807um")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=1516345995]
+position = Vector2(4, 8)
+shape = SubResource("CircleShape2D_807um")
