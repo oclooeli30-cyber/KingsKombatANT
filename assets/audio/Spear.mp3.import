@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://5pqm1uyfpvym"
+path="res://.godot/imported/WEAPSwrd_Sword Slide Cuts, Metallic, Impact CM4 2_344 Audio_Medieval Weapons Vol 2.mp3-8c0556ee638786a2adc1b9890a5793b7.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/WEAPSwrd_Sword Slide Cuts, Metallic, Impact CM4 2_344 Audio_Medieval Weapons Vol 2.mp3"
+dest_files=["res://.godot/imported/WEAPSwrd_Sword Slide Cuts, Metallic, Impact CM4 2_344 Audio_Medieval Weapons Vol 2.mp3-8c0556ee638786a2adc1b9890a5793b7.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
