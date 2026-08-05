@@ -9,12 +9,20 @@ const CLIMB_SPEED = 200.0
 
 var sprinting := false
 var attacking := false
-var climbing : bool
-var on_ladder : bool
+var climbing := false
+var on_ladder := false
 
 func _ready() -> void:
 	ANIM.animation_finished.connect(_on_animation_finished)
 	
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	on_ladder = true 
+	print("entered")
+	
+
+func _on_area_2d_body_exited(body: Node2D) -> void:
+	on_ladder = false
+	ANIM.play("idle")
 
 
 func _physics_process(delta: float) -> void:
@@ -67,13 +75,3 @@ func _physics_process(delta: float) -> void:
 
 func _on_animation_finished() -> void:
 	attacking = false
-
-
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	on_ladder = true 
-	print("entered")
-	
-
-func _on_area_2d_body_exited(body: Node2D) -> void:
-	on_ladder = false
-	ANIM.play("idle")
