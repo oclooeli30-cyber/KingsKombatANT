@@ -2,7 +2,8 @@ extends CharacterBody2D
 
 
 @onready var FOX = $AnimatedSprite2D
-@onready var PLAYER = 
+var PLAYER = get_first_node_in_group()
+
 
 const SPEED = 100.0
 const JUMP_VELOCITY = -400.0
