@@ -1,34 +1,60 @@
 [gd_scene format=3 uid="uid://bfbi6wu5pjpwt"]
 
 [ext_resource type="Texture2D" uid="uid://bep2dauvotlsd" path="res://assets/tileset/MiniFox.png" id="1_ta7dm"]
+[ext_resource type="Texture2D" uid="uid://cb7i63j5uc6b6" path="res://assets/characters/MiniSwordMan.png" id="2_mjfkm"]
+[ext_resource type="Texture2D" uid="uid://b7bmto2c16j7j" path="res://assets/tileset/tilemap_packed.png" id="3_r3oo3"]
 
-[sub_resource type="GDScript" id="GDScript_hv5ow"]
-resource_name = "enemyfox.gd"
+[sub_resource type="GDScript" id="GDScript_dvrjf"]
 script/source = "extends CharacterBody2D
 
 
-const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
+@onready var FOX = $AnimatedSprite2D
+@onready var PLAYER = 
 
+const SPEED = 100.0
+const JUMP_VELOCITY = -400.0
+var direction := 1
+
+
+func _process(delta: float) -> void:
+	if is_on_wall():
+		velocity.x *= -1
+		direction *= -1
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+		if velocity.y > 0:
+			FOX.play(\"up\")
+		else:
+			FOX.play(\"down\")
+			
 
-	# Handle jump.
-	if Input.is_action_just_pressed(\"ui_accept\") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-
+	
+	
+	
+	
+	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction := Input.get_axis(\"ui_left\", \"ui_right\")
-	if direction:
-		velocity.x = direction * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+	
+	
+	if velocity.x > 0:
+		FOX.flip_h = false
+	elif velocity.x < 0:
+		FOX.flip_h = true
+	
+	velocity.x = 20
+	velocity.x = direction * SPEED
+	if is_on_floor(): 
+		FOX.play(\"run\")
 
 	move_and_slide()
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	pass # Replace with function body.
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fwnai"]
@@ -71,6 +97,10 @@ region = Rect2(64, 160, 32, 32)
 atlas = ExtResource("1_ta7dm")
 region = Rect2(96, 160, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_hv5ow"]
+atlas = ExtResource("1_ta7dm")
+region = Rect2(32, 81, 32, 27)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_1tcre"]
 atlas = ExtResource("1_ta7dm")
 region = Rect2(0, 128, 32, 32)
@@ -110,6 +140,10 @@ region = Rect2(64, 32, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_lgt2a"]
 atlas = ExtResource("1_ta7dm")
 region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dvrjf"]
+atlas = ExtResource("1_ta7dm")
+region = Rect2(0, 81, 32, 27)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_807um"]
 animations = [{
@@ -155,6 +189,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_hv5ow")
+}],
+"loop": 1,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_1tcre")
 }, {
 "duration": 1.0,
@@ -197,6 +239,14 @@ animations = [{
 "loop": 1,
 "name": &"run",
 "speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dvrjf")
+}],
+"loop": 1,
+"name": &"up",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_807um"]
@@ -205,17 +255,104 @@ size = Vector2(13, 4.5)
 [sub_resource type="CircleShape2D" id="CircleShape2D_807um"]
 radius = 3.0
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_khinc"]
+atlas = ExtResource("2_mjfkm")
+region = Rect2(112, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bruh7"]
+atlas = ExtResource("3_r3oo3")
+region = Rect2(72, 36, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qu4a1"]
+atlas = ExtResource("3_r3oo3")
+region = Rect2(72, 36, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_70d11"]
+atlas = ExtResource("3_r3oo3")
+region = Rect2(90, 36, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6eyey"]
+atlas = ExtResource("3_r3oo3")
+region = Rect2(90, 36, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cw2d6"]
+atlas = ExtResource("3_r3oo3")
+region = Rect2(108, 36, 18, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_q6s1v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_khinc")
+}],
+"loop": 0,
+"name": &"emptygone",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bruh7")
+}],
+"loop": 1,
+"name": &"full",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qu4a1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_70d11")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qu4a1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_70d11")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qu4a1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_70d11")
+}],
+"loop": 0,
+"name": &"fulltohalf",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6eyey")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cw2d6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6eyey")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cw2d6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6eyey")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cw2d6")
+}],
+"loop": 0,
+"name": &"halftoempty",
+"speed": 5.0
+}]
+
 [node name="Fox" type="CharacterBody2D" unique_id=476424437]
-collision_layer = 4
-collision_mask = 4
-script = SubResource("GDScript_hv5ow")
+collision_layer = 9
+collision_mask = 9
+script = SubResource("GDScript_dvrjf")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=472796321]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_807um")
-animation = &"idle"
-frame = 1
-frame_progress = 0.4029692
+animation = &"down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1319525860]
 position = Vector2(-1.5, 12.25)
@@ -224,3 +361,23 @@ shape = SubResource("RectangleShape2D_807um")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=1516345995]
 position = Vector2(4, 8)
 shape = SubResource("CircleShape2D_807um")
+
+[node name="Lives" type="AnimatedSprite2D" parent="." unique_id=529640526]
+texture_filter = 1
+position = Vector2(0, -17.308872)
+sprite_frames = SubResource("SpriteFrames_q6s1v")
+animation = &"emptygone"
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1167112594]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=696241625]
+position = Vector2(-1.5, 12.25)
+shape = SubResource("RectangleShape2D_807um")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" unique_id=259693359]
+position = Vector2(4, 8)
+shape = SubResource("CircleShape2D_807um")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
