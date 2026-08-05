@@ -306,13 +306,13 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_807um"]
-size = Vector2(10, 22)
+size = Vector2(11.365633, 22)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3kwdt"]
 size = Vector2(23.559425, 10.770645)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_807um"]
-radius = 6.0827627
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s65a4"]
+size = Vector2(8.317182, 9.327219)
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=1144662305]
 z_index = 2
@@ -329,19 +329,21 @@ frame = 1
 frame_progress = 0.7399156
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1672498211]
-position = Vector2(3, 6)
+position = Vector2(2.3171835, 6.000001)
+scale = Vector2(1.0000001, 1.0000001)
 shape = SubResource("RectangleShape2D_807um")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=1784504328]
-position = Vector2(-2.0060737e-07, 15.385324)
+position = Vector2(0, 15.385324)
 scale = Vector2(1.0000001, 1.0000001)
 shape = SubResource("RectangleShape2D_3kwdt")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="." unique_id=1793110184]
-position = Vector2(14, 7)
-shape = SubResource("CircleShape2D_807um")
-
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2121138232]
 zoom = Vector2(2, 2)
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="." unique_id=1315415609]
+position = Vector2(7.621124, 7.4526033)
+scale = Vector2(1.0000001, 1.0000001)
+shape = SubResource("RectangleShape2D_s65a4")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
