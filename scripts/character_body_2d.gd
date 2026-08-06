@@ -143,4 +143,36 @@ func _on_hurt_detector_body_entered(body: Node2D) -> void:
 		
 		await ANIM.animation_finished
 		hurtfreeze = false
-		print(LIFE)
+		
+		
+func damage():
+	if invis < 1:
+		hurtfreeze = true
+		velocity.x = 0 
+		velocity.x += push * -400
+		velocity.y = JUMP_VELOCITY
+		
+		if LIFE > 1:
+			ANIM.play("hit")
+			HEART.visible = true
+			LIFE -= 1
+			if LIFE == 2:
+				HEART.play('fulltohalf')
+			if LIFE == 1:
+				HEART.play('halftoempty')
+			
+			invis = 200
+			
+		else:
+			velocity.x += push * -200
+			velocity.y = -JUMP_VELOCITY
+			await is_on_floor()
+			velocity.x = 0
+			ANIM.play("die")
+			HEART.play('emptygone')
+			await ANIM.animation_finished
+			get_tree().change_scene_to_file("res://scenes/main.tscn")
+		
+		await ANIM.animation_finished
+		hurtfreeze = false
+		

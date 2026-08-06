@@ -2,28 +2,31 @@ extends CharacterBody2D
 
 
 @onready var FOX = $AnimatedSprite2D
-var PLAYER = get_first_node_in_group()
-
+@onready var PLAYER = get_tree().get_first_node_in_group("Characters")
+var push : float
+var LIFE := 3
+@onready var HEART = $Lives
 
 const SPEED = 100.0
 const JUMP_VELOCITY = -400.0
 var direction := 1
+var hurtfreeze := false
 
-
-func _process(delta: float) -> void:
-	if is_on_wall():
-		velocity.x *= -1
-		direction *= -1
+func _ready() -> void:
+	HEART.visible = false
+	
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
-	if not is_on_floor():
+	if not is_on_floor() and not hurtfreeze:
 		velocity += get_gravity() * delta
 		if velocity.y > 0:
 			FOX.play("up")
 		else:
 			FOX.play("down")
-			
+	if is_on_wall() and not hurtfreeze:
+		velocity.x *= -1
+		direction *= -1
 
 	
 	
@@ -38,14 +41,43 @@ func _physics_process(delta: float) -> void:
 		FOX.flip_h = false
 	elif velocity.x < 0:
 		FOX.flip_h = true
-	
-	velocity.x = 20
-	velocity.x = direction * SPEED
-	if is_on_floor(): 
+	if not hurtfreeze:
+		velocity.x = 20
+		velocity.x = direction * SPEED
+	if is_on_floor() and velocity.x != 0 and not hurtfreeze: 
 		FOX.play("run")
 
 	move_and_slide()
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	pass # Replace with function body.
+	if PLAYER.attacking == true:
+		velocity.x = 0 
+		hurtfreeze = true
+		velocity.x = 0 
+		velocity.x += push * -400
+		
+		if LIFE > 1:
+			FOX.play("hit")
+			HEART.visible = true
+			LIFE -= 1
+			if LIFE == 2:
+				HEART.play('fulltohalf')
+			if LIFE == 1:
+				HEART.play('halftoempty')
+			
+		else:
+			velocity.x += push * -200
+			velocity.y = -JUMP_VELOCITY / 2
+			await is_on_floor()
+			velocity.x = 0
+			FOX.play("die")
+			HEART.play('emptygone')
+			await FOX.animation_finished
+			queue_free()
+	else:
+		PLAYER.damage()	
+		print("hi")
+		
+		await FOX.animation_finished
+		hurtfreeze = false

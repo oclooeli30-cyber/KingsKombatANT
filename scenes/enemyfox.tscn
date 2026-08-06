@@ -198,10 +198,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_807um"]
-size = Vector2(13, 4.5)
+size = Vector2(15, 6.5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_807um"]
-radius = 3.0
+radius = 4.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_khinc"]
 atlas = ExtResource("2_mjfkm")
@@ -227,7 +227,7 @@ region = Rect2(90, 36, 18, 18)
 atlas = ExtResource("3_r3oo3")
 region = Rect2(108, 36, 18, 18)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_q6s1v"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_r3oo3"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -293,14 +293,14 @@ animations = [{
 }]
 
 [node name="Fox" type="CharacterBody2D" unique_id=476424437]
-collision_layer = 9
-collision_mask = 9
+collision_layer = 145
+collision_mask = 17
 script = ExtResource("1_r3oo3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=472796321]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_807um")
-animation = &"down"
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1319525860]
 position = Vector2(-1.5, 12.25)
@@ -313,15 +313,15 @@ shape = SubResource("CircleShape2D_807um")
 [node name="Lives" type="AnimatedSprite2D" parent="." unique_id=529640526]
 texture_filter = 1
 position = Vector2(0, -17.308872)
-sprite_frames = SubResource("SpriteFrames_q6s1v")
-animation = &"emptygone"
+sprite_frames = SubResource("SpriteFrames_r3oo3")
+animation = &"full"
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1167112594]
 collision_layer = 8
-collision_mask = 8
+collision_mask = 12
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=696241625]
-position = Vector2(-1.5, 12.25)
+position = Vector2(-0.5, 11.25)
 shape = SubResource("RectangleShape2D_807um")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" unique_id=259693359]

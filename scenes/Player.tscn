@@ -7,13 +7,13 @@
 [ext_resource type="Texture2D" uid="uid://cb7i63j5uc6b6" path="res://assets/characters/MiniSwordMan.png" id="5_qu4a1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s65a4"]
-size = Vector2(8.317182, 9.327219)
+size = Vector2(20.19379, 9.327219)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_807um"]
-size = Vector2(11.365633, 22)
+size = Vector2(13.048447, 22)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3kwdt"]
-size = Vector2(23.559425, 10.770645)
+size = Vector2(28.60787, 10.770645)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1bvp3"]
 atlas = ExtResource("2_3li8b")
@@ -320,6 +320,9 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_807um"]
 radius = 6.731264
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qu4a1"]
+size = Vector2(25.242237, 10.770645)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_khinc"]
 atlas = ExtResource("5_qu4a1")
 region = Rect2(112, 80, 16, 16)
@@ -409,22 +412,27 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Player" type="CharacterBody2D" unique_id=1144662305]
+[node name="Player" type="CharacterBody2D" unique_id=1144662305 groups=["Characters"]]
 z_index = 2
 scale = Vector2(0.594242, 0.5777384)
+collision_layer = 9
+collision_mask = 13
 script = ExtResource("1_v6fml")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="." unique_id=1315415609]
+visible = false
 position = Vector2(7.6211257, 7.4526033)
 scale = Vector2(1.0000001, 1.0000001)
 shape = SubResource("RectangleShape2D_s65a4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1672498211]
+visible = false
 position = Vector2(2.3171835, 6.0000014)
 scale = Vector2(1.0000001, 1.0000001)
 shape = SubResource("RectangleShape2D_807um")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=1784504328]
+visible = false
 position = Vector2(0, 15.385324)
 scale = Vector2(1.0000001, 1.0000001)
 shape = SubResource("RectangleShape2D_3kwdt")
@@ -453,25 +461,22 @@ shape = SubResource("CircleShape2D_807um")
 [node name="HurtDetector" type="Area2D" parent="." unique_id=994349669]
 scale = Vector2(1.0000001, 1.0000001)
 collision_layer = 0
-collision_mask = 4
+collision_mask = 128
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="HurtDetector" unique_id=87824387]
-visible = false
-position = Vector2(7.6211257, 7.4526033)
+position = Vector2(5.0484495, 7.452603)
 scale = Vector2(1.0000001, 1.0000001)
 shape = SubResource("RectangleShape2D_s65a4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtDetector" unique_id=246730694]
-visible = false
-position = Vector2(2.3171835, 6.0000014)
+position = Vector2(1.4757762, 6.0000014)
 scale = Vector2(1.0000001, 1.0000001)
 shape = SubResource("RectangleShape2D_807um")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="HurtDetector" unique_id=1773598049]
-visible = false
-position = Vector2(0, 15.385324)
+position = Vector2(5.889856, 15.385323)
 scale = Vector2(1.0000001, 1.0000001)
-shape = SubResource("RectangleShape2D_3kwdt")
+shape = SubResource("RectangleShape2D_qu4a1")
 
 [node name="SpearSFX" type="AudioStreamPlayer2D" parent="." unique_id=2006415166]
 stream = ExtResource("3_3li8b")
