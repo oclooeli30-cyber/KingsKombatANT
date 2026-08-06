@@ -8,33 +8,38 @@ func _init() -> void:
 
     var player = level.get_node("Player")
     var fox = level.get_node("Fox")
+
+    print("--- let everyone land on the ground ---")
+    for i in range(80):
+        await physics_frame
+    print("player pos=", player.global_position, " on_floor=", player.is_on_floor())
+    print("fox pos=", fox.global_position, " on_floor=", fox.is_on_floor())
+
+    print("--- park fox adjacent to player on the ground ---")
     fox.direction = 0
     fox.global_position = player.global_position + Vector2(16, 0)
-    for i in range(5):
+    for i in range(3):
         await physics_frame
+    var hitbox = fox.get_node("Area2D")
+    print("overlap adjacent: ",
+          hitbox.get_overlapping_areas().has(player.get_node("EnemyDetector")))
 
-    print("overlap at start: ",
-          fox.get_node("Area2D").get_overlapping_areas().has(player.get_node("EnemyDetector")))
-
-    print("--- attack while adjacent ---")
+    print("--- attack ---")
     print("fox LIFE before=", fox.LIFE)
     player.attacking = true
     player.get_node("AnimatedSprite2D").play("attack")
     for i in range(25):
         await physics_frame
-    print("fox LIFE after=", fox.LIFE, " player attacking=", player.attacking)
+    print("fox LIFE after=", fox.LIFE)
 
-    print("--- lethal hit kills fox ---")
+    print("--- lethal hit ---")
     fox.LIFE = 1
     fox.hurtfreeze = false
     player.attacking = true
     player.get_node("AnimatedSprite2D").play("attack")
     for i in range(45):
         await physics_frame
-    print("fox valid after lethal hit: ", is_instance_valid(fox))
-
-    print("--- attack resets when animation finishes (not stuck) ---")
-    print("player attacking=", player.attacking)
+    print("fox alive after lethal: ", is_instance_valid(fox))
 
     print("TEST DONE")
     quit()
