@@ -8,30 +8,36 @@ func _init() -> void:
 
     var player = level.get_node("Player")
     var fox = level.get_node("Fox")
-    var fox_area = fox.get_node("Area2D")
 
-    print("--- signals present in enemy scene ---")
-    var cons = fox_area.get_signal_connection_list("body_entered")
-    for c in cons:
-        print("body_entered -> ", c.callable)
-    print("player methods: damage=", player.has_method("damage"),
+    print("--- player methods now present ---")
+    print("damage=", player.has_method("damage"),
           " _on_area_2d_body_entered=", player.has_method("_on_area_2d_body_entered"),
-          " _on_animated_sprite_2d_animation_finished=", player.has_method("_on_animated_sprite_2d_animation_finished"),
-          " _on_area_2d_body_exited=", player.has_method("_on_area_2d_body_exited"))
+          " _on_animated_sprite_2d_animation_finished=", player.has_method("_on_animated_sprite_2d_animation_finished"))
 
-    fox_area.area_entered.connect(func(a): print("FOX AREA_ENTERED: ", a.name, " (parent: ", a.get_parent().name, ")"))
-    fox_area.body_entered.connect(func(b): print("FOX BODY_ENTERED: ", b.name))
-
-    print("--- moving fox onto player ---")
+    print("--- overlap fox EnemyDetector with player, then attack ---")
     fox.global_position = player.global_position
-    for i in range(8):
+    for i in range(6):
         await physics_frame
 
-    print("--- simulating player attack overlap ---")
-    var enemy_det = player.get_node("EnemyDetector")
-    print("EnemyDetector layer=", enemy_det.collision_layer, " mask=", enemy_det.collision_mask)
-    print("fox Area2D layer=", fox_area.collision_layer, " mask=", fox_area.collision_mask)
-    print("player attacking=", player.attacking, " LIFE=", player.LIFE)
+    var overlapped = fox.get_node("Area2D").get_overlapping_areas()
+    print("fox area overlaps player EnemyDetector: ", overlapped.has(player.get_node("EnemyDetector")))
+
+    print("fox LIFE before attack=", fox.LIFE)
+    player.attacking = true
+    player.get_node("AnimatedSprite2D").play("attack")
+    for i in range(15):
+        await physics_frame
+    print("fox LIFE after attack=", fox.LIFE)
+
+    print("--- player takes damage ---")
+    var before = player.LIFE
+    player.damage()
+    for i in range(10):
+        await process_frame
+    print("player LIFE ", before, " -> ", player.LIFE)
+
+    print("--- attack completes via signal (attacking resets) ---")
+    print("player attacking=", player.attacking)
 
     print("TEST DONE")
     quit()
