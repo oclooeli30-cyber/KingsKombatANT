@@ -415,8 +415,6 @@ animations = [{
 [node name="Player" type="CharacterBody2D" unique_id=1144662305 groups=["Characters"]]
 z_index = 2
 scale = Vector2(0.594242, 0.5777384)
-collision_layer = 41
-collision_mask = 13
 script = ExtResource("1_v6fml")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="." unique_id=1315415609]
@@ -452,7 +450,7 @@ zoom = Vector2(2, 2)
 visible = false
 scale = Vector2(1.0000001, 1.0000001)
 collision_layer = 0
-collision_mask = 2
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LadderDetector" unique_id=315836642]
 visible = false
@@ -462,7 +460,7 @@ shape = SubResource("CircleShape2D_807um")
 [node name="HurtDetector" type="Area2D" parent="." unique_id=994349669]
 visible = false
 scale = Vector2(1.0000001, 1.0000001)
-collision_layer = 0
+collision_layer = 130
 collision_mask = 130
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="HurtDetector" unique_id=87824387]
@@ -515,8 +513,8 @@ wait_time = 0.15
 one_shot = true
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="body_entered" from="LadderDetector" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="LadderDetector" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="LadderDetector" to="." method="_on_ladder_detector_body_entered"]
+[connection signal="body_exited" from="LadderDetector" to="." method="_on_ladder_detector_body_exited"]
 [connection signal="body_entered" from="HurtDetector" to="." method="_on_hurt_detector_body_entered"]
 [connection signal="body_entered" from="HurtDetector" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="HurtDetector" to="." method="_on_area_2d_body_exited"]

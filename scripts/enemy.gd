@@ -54,7 +54,6 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	if PLAYER.attacking == true:
 		velocity.x = 0 
 		hurtfreeze = true
-		velocity.x = 0 
 		
 		if LIFE > 1:
 			FOX.play("hit")
@@ -68,14 +67,14 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			
 			hurtfreeze = false
 		else:
-			velocity.x += push * -200
-			velocity.y = -JUMP_VELOCITY / 2
-			velocity.x = 0
+			
 			FOX.play("die")
 			HEART.play('emptygone')
 			await FOX.animation_finished
 			queue_free()
-			
+		velocity.x += push * -200
+		velocity.y = -JUMP_VELOCITY / 2
+		velocity.x = 0	
 	else:
 		PLAYER.damage()	
 		print("hi")

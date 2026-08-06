@@ -24,17 +24,9 @@ var attack_buffer : bool = false
 
 
 func _ready() -> void:
-	ANIM.animation_finished.connect(_on_animation_finished)
 	HEART.play("full")
 	HEART.visible = false
 
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	on_ladder = true 
-	print("entered")
-	
-
-func _on_area_2d_body_exited(body: Node2D) -> void:
-	on_ladder = false
 
 func _process(delta: float) -> void:
 	if invis > 0:
@@ -60,6 +52,7 @@ func _physics_process(delta: float) -> void:
 		ANIM.play("attack")
 		SpearSFX.play()
 		await ANIM.animation_finished
+		attacking = false
 		
 	
 	push = Input.get_axis("left", "right")
@@ -72,12 +65,11 @@ func _physics_process(delta: float) -> void:
 			velocity.y = JUMP_VELOCITY
 
 		if Input.is_action_just_pressed("attack") and is_on_floor() and not attacking:
-			attacking = true
-			attack_buffer = false
+			attack_buffer = true
 			TIMER.start()
 			ANIM.play("attack")
 			SpearSFX.play()
-			await ANIM.animation_finished
+			
 			
 		
 		if not attacking:
@@ -128,9 +120,6 @@ func _physics_process(delta: float) -> void:
 				ANIM.play("fall")
 
 	move_and_slide()
-func _on_animation_finished() -> void:
-	attacking = false
-
 
 func _on_hurt_detector_body_entered(body: Node2D) -> void:
 	if invis < 1:
@@ -195,3 +184,11 @@ func damage():
 		await ANIM.animation_finished
 		hurtfreeze = false
 		
+
+
+func _on_ladder_detector_body_entered(body: Node2D) -> void:
+	on_ladder = true
+
+
+func _on_ladder_detector_body_exited(body: Node2D) -> void:
+	on_ladder = false
