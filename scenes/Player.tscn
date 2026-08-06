@@ -7,10 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://cb7i63j5uc6b6" path="res://assets/characters/MiniSwordMan.png" id="5_qu4a1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s65a4"]
-size = Vector2(20.19379, 9.327219)
+size = Vector2(28.607868, 9.327219)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_807um"]
-size = Vector2(13.048447, 22)
+size = Vector2(18.510975, 22)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3kwdt"]
 size = Vector2(28.60787, 10.770645)
@@ -189,7 +189,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"attack",
-"speed": 24.0
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -321,7 +321,7 @@ animations = [{
 radius = 6.731264
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qu4a1"]
-size = Vector2(25.242237, 10.770645)
+size = Vector2(33.65632, 10.770645)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_khinc"]
 atlas = ExtResource("5_qu4a1")
@@ -415,7 +415,7 @@ animations = [{
 [node name="Player" type="CharacterBody2D" unique_id=1144662305 groups=["Characters"]]
 z_index = 2
 scale = Vector2(0.594242, 0.5777384)
-collision_layer = 9
+collision_layer = 41
 collision_mask = 13
 script = ExtResource("1_v6fml")
 
@@ -442,13 +442,14 @@ texture_filter = 1
 position = Vector2(3.5000002, -3.0000002)
 scale = Vector2(1.5937501, 1.7500001)
 sprite_frames = SubResource("SpriteFrames_807um")
-animation = &"hit"
+animation = &"attack"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2121138232]
 scale = Vector2(1.0000001, 1.0000001)
 zoom = Vector2(2, 2)
 
 [node name="LadderDetector" type="Area2D" parent="." unique_id=1598923460]
+visible = false
 scale = Vector2(1.0000001, 1.0000001)
 collision_layer = 0
 collision_mask = 2
@@ -459,9 +460,10 @@ position = Vector2(3.365632, 12.116209)
 shape = SubResource("CircleShape2D_807um")
 
 [node name="HurtDetector" type="Area2D" parent="." unique_id=994349669]
+visible = false
 scale = Vector2(1.0000001, 1.0000001)
 collision_layer = 0
-collision_mask = 128
+collision_mask = 130
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="HurtDetector" unique_id=87824387]
 position = Vector2(5.0484495, 7.452603)
@@ -487,6 +489,30 @@ texture_filter = 1
 position = Vector2(0, -17.308872)
 sprite_frames = SubResource("SpriteFrames_3kwdt")
 animation = &"emptygone"
+
+[node name="EnemyDetector" type="Area2D" parent="." unique_id=106435272]
+scale = Vector2(1.0000001, 1.0000001)
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="EnemyDetector" unique_id=661912914]
+position = Vector2(9.255489, 7.452603)
+scale = Vector2(1.0000001, 1.0000001)
+shape = SubResource("RectangleShape2D_s65a4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetector" unique_id=1162377810]
+position = Vector2(4.20704, 6.0000014)
+scale = Vector2(1.0000001, 1.0000001)
+shape = SubResource("RectangleShape2D_807um")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="EnemyDetector" unique_id=1978162147]
+position = Vector2(10.096896, 15.385323)
+scale = Vector2(1.0000001, 1.0000001)
+shape = SubResource("RectangleShape2D_qu4a1")
+
+[node name="Timer" type="Timer" parent="." unique_id=1222639486]
+wait_time = 0.15
+one_shot = true
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="LadderDetector" to="." method="_on_area_2d_body_entered"]

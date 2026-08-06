@@ -318,7 +318,7 @@ animation = &"full"
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1167112594]
 collision_layer = 8
-collision_mask = 12
+collision_mask = 44
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=696241625]
 position = Vector2(-0.5, 11.25)

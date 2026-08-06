@@ -8,6 +8,7 @@ const CLIMB_SPEED = 200.0
 @onready var ANIM := $AnimatedSprite2D
 @onready var SpearSFX := $SpearSFX
 @onready var HEART := $Lives
+@onready var TIMER := $Timer
 
 var hurtfreeze := false
 var LIFE := 3
@@ -18,6 +19,7 @@ var on_ladder := false
 var laddery : int
 var push : float
 var invis := 0
+var attack_buffer : bool = false
 
 
 
@@ -47,6 +49,19 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	
+	if TIMER.is_stopped():
+		attack_buffer = false
+
+	# Check for attack using the buffer
+	if attack_buffer and is_on_floor() and not attacking:
+		attacking = true
+		attack_buffer = false
+		TIMER.start()
+		ANIM.play("attack")
+		SpearSFX.play()
+		await ANIM.animation_finished
+		
+	
 	push = Input.get_axis("left", "right")
 	
 	if not on_ladder and not hurtfreeze:
@@ -58,8 +73,12 @@ func _physics_process(delta: float) -> void:
 
 		if Input.is_action_just_pressed("attack") and is_on_floor() and not attacking:
 			attacking = true
+			attack_buffer = false
+			TIMER.start()
 			ANIM.play("attack")
 			SpearSFX.play()
+			await ANIM.animation_finished
+			
 		
 		if not attacking:
 			var direction := Input.get_axis("left", "right")
