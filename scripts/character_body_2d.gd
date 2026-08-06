@@ -65,10 +65,11 @@ func _physics_process(delta: float) -> void:
 			velocity.y = JUMP_VELOCITY
 
 		if Input.is_action_just_pressed("attack") and is_on_floor() and not attacking:
-			attack_buffer = true
-			TIMER.start()
+			attacking = true
 			ANIM.play("attack")
 			SpearSFX.play()
+			await ANIM.animation_finished
+			attacking = false
 			
 			
 		
@@ -122,7 +123,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _on_hurt_detector_body_entered(body: Node2D) -> void:
-	if invis < 1:
+	if invis == 0:
 		hurtfreeze = true
 		velocity.x = 0 
 		velocity.x += push * -400

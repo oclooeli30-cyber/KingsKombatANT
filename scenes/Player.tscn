@@ -418,19 +418,16 @@ scale = Vector2(0.594242, 0.5777384)
 script = ExtResource("1_v6fml")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="." unique_id=1315415609]
-visible = false
 position = Vector2(7.6211257, 7.4526033)
 scale = Vector2(1.0000001, 1.0000001)
 shape = SubResource("RectangleShape2D_s65a4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1672498211]
-visible = false
 position = Vector2(2.3171835, 6.0000014)
 scale = Vector2(1.0000001, 1.0000001)
 shape = SubResource("RectangleShape2D_807um")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=1784504328]
-visible = false
 position = Vector2(0, 15.385324)
 scale = Vector2(1.0000001, 1.0000001)
 shape = SubResource("RectangleShape2D_3kwdt")
@@ -447,18 +444,15 @@ scale = Vector2(1.0000001, 1.0000001)
 zoom = Vector2(2, 2)
 
 [node name="LadderDetector" type="Area2D" parent="." unique_id=1598923460]
-visible = false
 scale = Vector2(1.0000001, 1.0000001)
-collision_layer = 0
+collision_layer = 4
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LadderDetector" unique_id=315836642]
-visible = false
 position = Vector2(3.365632, 12.116209)
 shape = SubResource("CircleShape2D_807um")
 
 [node name="HurtDetector" type="Area2D" parent="." unique_id=994349669]
-visible = false
 scale = Vector2(1.0000001, 1.0000001)
 collision_layer = 130
 collision_mask = 130
@@ -490,7 +484,7 @@ animation = &"emptygone"
 
 [node name="EnemyDetector" type="Area2D" parent="." unique_id=106435272]
 scale = Vector2(1.0000001, 1.0000001)
-collision_layer = 32
+collision_layer = 36
 collision_mask = 0
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="EnemyDetector" unique_id=661912914]
@@ -515,6 +509,6 @@ one_shot = true
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="LadderDetector" to="." method="_on_ladder_detector_body_entered"]
 [connection signal="body_exited" from="LadderDetector" to="." method="_on_ladder_detector_body_exited"]
-[connection signal="body_entered" from="HurtDetector" to="." method="_on_hurt_detector_body_entered"]
 [connection signal="body_entered" from="HurtDetector" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="HurtDetector" to="." method="_on_hurt_detector_body_entered"]
 [connection signal="body_exited" from="HurtDetector" to="." method="_on_area_2d_body_exited"]
