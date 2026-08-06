@@ -10,31 +10,28 @@ func _init() -> void:
     var fox = level.get_node("Fox")
     var hitbox = fox.get_node("Area2D")
 
-    print("--- hold fox overlapping player's EnemyDetector ---")
-    for i in range(8):
-        fox.global_position = player.global_position
-        await physics_frame
+    print("hitbox monitoring=", hitbox.monitoring, " monitorable=", hitbox.monitorable,
+          " layer=", hitbox.collision_layer, " mask=", hitbox.collision_mask)
+    var det = player.get_node("EnemyDetector")
+    print("EnemyDetector monitoring=", det.monitoring, " monitorable=", det.monitorable,
+          " layer=", det.collision_layer, " mask=", det.collision_mask)
 
-    print("fox area overlaps player EnemyDetector: ",
-          hitbox.get_overlapping_areas().has(player.get_node("EnemyDetector")))
+    for offset in [Vector2.ZERO, Vector2(10, 0), Vector2(14, 0), Vector2(18, 0), Vector2(-10, 0)]:
+        fox.global_position = player.global_position + offset
+        for i in range(4):
+            await physics_frame
+        var overlaps = hitbox.get_overlapping_areas()
+        var names = []
+        for a in overlaps:
+            names.append(a.get_parent().name if a.get_parent() else "?")
+        print("offset ", offset, " -> overlapping areas: ", names,
+              " hasEnemyDetector=", overlaps.has(det))
 
-    print("--- player attacks while overlapping ---")
-    print("fox LIFE before=", fox.LIFE, " attacking=", player.attacking)
-    player.invis = 0
-    player.attacking = true
-    player.get_node("AnimatedSprite2D").play("attack")
-    for i in range(20):
-        fox.global_position = player.global_position
-        await physics_frame
-    print("fox LIFE after=", fox.LIFE, " player attacking=", player.attacking)
-
-    print("--- player damage (clear invis first) ---")
-    player.invis = 0
-    var before = player.LIFE
-    player.damage()
-    for i in range(10):
-        await process_frame
-    print("player LIFE ", before, " -> ", player.LIFE)
+    print("--- also check det.get_overlapping_areas ---")
+    var dnames = []
+    for a in det.get_overlapping_areas():
+        dnames.append(a.get_parent().name if a.get_parent() else "?")
+    print("EnemyDetector overlaps: ", dnames)
 
     print("TEST DONE")
     quit()
