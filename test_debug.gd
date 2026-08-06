@@ -10,28 +10,34 @@ func _init() -> void:
     var fox = level.get_node("Fox")
     var hitbox = fox.get_node("Area2D")
 
-    print("hitbox monitoring=", hitbox.monitoring, " monitorable=", hitbox.monitorable,
-          " layer=", hitbox.collision_layer, " mask=", hitbox.collision_mask)
-    var det = player.get_node("EnemyDetector")
-    print("EnemyDetector monitoring=", det.monitoring, " monitorable=", det.monitorable,
-          " layer=", det.collision_layer, " mask=", det.collision_mask)
+    fox.set_physics_process(false)
+    fox.set_process(false)
 
-    for offset in [Vector2.ZERO, Vector2(10, 0), Vector2(14, 0), Vector2(18, 0), Vector2(-10, 0)]:
+    for offset in [Vector2(16, 0), Vector2(18, 0), Vector2(20, 0), Vector2(24, 0)]:
         fox.global_position = player.global_position + offset
-        for i in range(4):
+        for i in range(3):
             await physics_frame
         var overlaps = hitbox.get_overlapping_areas()
-        var names = []
-        for a in overlaps:
-            names.append(a.get_parent().name if a.get_parent() else "?")
-        print("offset ", offset, " -> overlapping areas: ", names,
-              " hasEnemyDetector=", overlaps.has(det))
+        print("offset ", offset, " -> hasEnemyDetector=", overlaps.has(player.get_node("EnemyDetector")))
 
-    print("--- also check det.get_overlapping_areas ---")
-    var dnames = []
-    for a in det.get_overlapping_areas():
-        dnames.append(a.get_parent().name if a.get_parent() else "?")
-    print("EnemyDetector overlaps: ", dnames)
+    fox.global_position = player.global_position + Vector2(16, 0)
+    for i in range(3):
+        await physics_frame
+    print("--- attack while adjacent ---")
+    print("fox LIFE before=", fox.LIFE)
+    player.attacking = true
+    player.get_node("AnimatedSprite2D").play("attack")
+    for i in range(25):
+        await physics_frame
+    print("fox LIFE after=", fox.LIFE, " player attacking=", player.attacking)
+
+    print("--- enemy dies at 0 ---")
+    fox.LIFE = 1
+    player.attacking = true
+    player.get_node("AnimatedSprite2D").play("attack")
+    for i in range(40):
+        await physics_frame
+    print("fox valid after lethal hit: ", is_instance_valid(fox))
 
     print("TEST DONE")
     quit()
