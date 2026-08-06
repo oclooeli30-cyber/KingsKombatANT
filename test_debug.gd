@@ -9,19 +9,25 @@ func _init() -> void:
     var player = level.get_node("Player")
     var fox = level.get_node("Fox")
 
-    print("--- lethal hit directly ---")
-    fox.LIFE = 1
-    fox._take_damage()
-    for i in range(60):
-        await process_frame
-    print("fox alive after lethal: ", is_instance_valid(fox))
+    print("--- settle ---")
+    for i in range(80):
+        await physics_frame
+    print("fox on_floor=", fox.is_on_floor())
 
-    print("--- attack finishes via signal (no stuck state) ---")
-    player.attacking = true
-    player.get_node("AnimatedSprite2D").play("attack")
-    for i in range(30):
+    fox.LIFE = 1
+    print("calling _take_damage, anim=", fox.FOX.animation)
+    fox._take_damage()
+    print("after call, hurtfreeze=", fox.hurtfreeze, " anim=", fox.FOX.animation)
+    fox.FOX.animation_finished.connect(func(): print("FOX animation_finished fired, anim=", fox.FOX.animation))
+
+    for i in range(90):
         await process_frame
-    print("player attacking=", player.attacking)
+        if not is_instance_valid(fox):
+            print("fox freed at frame ", i)
+            break
+    print("fox alive at end: ", is_instance_valid(fox))
+    if is_instance_valid(fox):
+        print("fox anim=", fox.FOX.animation, " hurtfreeze=", fox.hurtfreeze)
 
     print("TEST DONE")
     quit()
